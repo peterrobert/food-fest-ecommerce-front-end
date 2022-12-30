@@ -1,10 +1,21 @@
 import ProductsPage from "./pages/ProductsPage";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
+
+// Create a client
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div className="App">
+    // Provide the client to your App
+    <QueryClientProvider client={queryClient}>
       <ProductsPage />
-    </div>
+    </QueryClientProvider>
   );
 }
 
