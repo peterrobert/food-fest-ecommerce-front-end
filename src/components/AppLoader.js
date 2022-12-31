@@ -1,7 +1,7 @@
 import React from "react";
 // <=== material ui ===>
 
-export default function AppLoader({ productStatus, categoryStatus }) {
+export default function AppLoader({ productStatus, categoryStatus, singleProductStatus }) {
   return (
     <div style={LoaderStyles.screenPosition}>
       <div className="loader-container" style={LoaderStyles.loaderContainer}>
@@ -15,7 +15,7 @@ export default function AppLoader({ productStatus, categoryStatus }) {
         <br />
       </div>
       <br />
-      {(productStatus || categoryStatus) === "loading" && (
+      {(productStatus || categoryStatus || singleProductStatus) === "loading" && (
         <h1 style={LoaderStyles.loaderContainer}> loading...</h1>
       )}
     </div>
