@@ -1,8 +1,6 @@
+import "./styles/app.css";
 import ProductsPage from "./pages/ProductsPage";
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from "react-query";

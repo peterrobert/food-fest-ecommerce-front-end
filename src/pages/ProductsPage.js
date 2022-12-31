@@ -7,6 +7,7 @@ import AppLoader from "../components/AppLoader";
 import { fetchAllProducts } from "../services/ProductService";
 import ProductDisplay from "../components/ProductDisplay";
 
+
 export default function ProductsPage() {
   // ==== QUERIES ====
   // fetch categories
@@ -22,8 +23,6 @@ export default function ProductsPage() {
     status: productStatus,
     data: productData,
   } = useQuery("products", fetchAllProducts);
-
-  console.log(productData);
 
   //  <=== Check loader ===>
   const checkloader = () => {

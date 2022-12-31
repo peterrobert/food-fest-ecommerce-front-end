@@ -4,7 +4,7 @@ import cart from "../images/cart.png";
 export default function AppProductCard({ product }) {
   const { title, image, price } = product;
   return (
-    <div className="product-card-container">
+    <div className="product-card-container" style={styles.productContainer}>
       <img
         src={image}
         alt="product-one"
@@ -12,7 +12,7 @@ export default function AppProductCard({ product }) {
         onClick={() => console.log("clicked")}
       />
       <h2 style={styles.productName}>{title}</h2>
-      <h2 style={styles.productPrice}>{price}</h2>
+      <h2 style={styles.productPrice}>{price} $$</h2>
       <div
         className="card-cart-button"
         onClick={() => console.log("add to cart")}
@@ -74,7 +74,7 @@ const styles = {
 
   productImage: {
     width: "100%",
-    height: "338px",
+    height: "330px",
     objectFit: "contain",
     objectPosition: "center",
   },
