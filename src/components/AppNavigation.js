@@ -12,7 +12,23 @@ export default function AppNavigation({ categories }) {
   // <=== Return the nav bar ===>
   return (
     <div className="navigation-container">
-      <ul class="nav justify-content-center">{displayCategories()}</ul>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="navbar-brand">StoreFest</div>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">{displayCategories()}</div>
+        </div>
+      </nav>
     </div>
   );
 }

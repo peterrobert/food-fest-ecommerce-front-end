@@ -12,16 +12,13 @@ export default function ProductsPage() {
     fetchAllCategories
   );
 
-  console.log(data);
-
   //  <=== Check loader ===>
   const checkloader = () => {
-    isLoading ? (
+    return isLoading ? (
       <AppLoader status={status} />
     ) : (
       <>
         <AppNavigation categories={data} />
-        ProductsPage
       </>
     );
   };
