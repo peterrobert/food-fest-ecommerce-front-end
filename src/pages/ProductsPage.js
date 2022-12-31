@@ -4,21 +4,38 @@ import { useQuery } from "react-query";
 // <=== IMPORT THE API ===>
 import { fetchAllCategories } from "../services/CategoryService";
 import AppLoader from "../components/AppLoader";
+import { fetchAllProducts } from "../services/ProductService";
+import ProductDisplay from "../components/ProductDisplay";
 
 export default function ProductsPage() {
-  // Queries
-  const { isLoading, status, data } = useQuery(
-    "Categories",
-    fetchAllCategories
-  );
+  // ==== QUERIES ====
+  // fetch categories
+  const {
+    isLoading: categoryIsLoading,
+    status: categoryStatus,
+    data: categoryData,
+  } = useQuery("Categories", fetchAllCategories);
+
+  // fetch products
+  const {
+    isLoading: productIsLoading,
+    status: productStatus,
+    data: productData,
+  } = useQuery("products", fetchAllProducts);
+
+  console.log(productData);
 
   //  <=== Check loader ===>
   const checkloader = () => {
-    return isLoading ? (
-      <AppLoader status={status} />
+    return categoryIsLoading || productIsLoading ? (
+      <AppLoader
+        categoryStatus={categoryStatus}
+        productStatus={productStatus}
+      />
     ) : (
       <>
-        <AppNavigation categories={data} />
+        <AppNavigation categories={categoryData} />
+        <ProductDisplay products={productData} />
       </>
     );
   };

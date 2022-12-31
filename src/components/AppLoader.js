@@ -1,12 +1,12 @@
 import React from "react";
 // <=== material ui ===>
 
-export default function AppLoader({ status }) {
+export default function AppLoader({ productStatus, categoryStatus }) {
   return (
     <div style={LoaderStyles.screenPosition}>
       <div className="loader-container" style={LoaderStyles.loaderContainer}>
         <div
-          className="spinner-border"
+          className="spinner-border  text-success"
           role="status"
           style={LoaderStyles.spinner}
         >
@@ -15,7 +15,9 @@ export default function AppLoader({ status }) {
         <br />
       </div>
       <br />
-      <h1 style={LoaderStyles.loaderContainer}> {status}...</h1>
+      {(productStatus || categoryStatus) === "loading" && (
+        <h1 style={LoaderStyles.loaderContainer}> loading...</h1>
+      )}
     </div>
   );
 }
