@@ -18,7 +18,7 @@ export default function ProductDisplayPage() {
     data:  singleProductData,
   } = useQuery(["Single Product", id], fetchSingleProduct);
   
-
+ // <==== Add the item to the cart ====>
   const handleProductCart = (product) => {
     console.log(product);
   };
@@ -29,7 +29,7 @@ export default function ProductDisplayPage() {
   //  <==== load the data when the loader finishes loading  ====>
   return (
     <>
-      <div className="product-display-container">
+      <div className="product-display-container container">
         <div className="main-image-display">
           <img src={ singleProductData.image} alt="main" />
         </div>

@@ -16,7 +16,7 @@ const styles = {
       padding: "16px 32px",
       display: "flex",
       border: "green",
-      color: "green",
+      color: "white",
       textTransform: "uppercase",
       marginTop: "20px",
       marginBottom: "20px",

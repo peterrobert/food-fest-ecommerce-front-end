@@ -17,7 +17,7 @@ export default function ProductDisplay({ products }) {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="row">{displayProducts()}</div>
     </div>
   );
