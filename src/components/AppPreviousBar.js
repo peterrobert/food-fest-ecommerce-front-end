@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import CartContext from "../context/CartContext";
 
 export default function AppPreviousBar({ handlePrevious }) {
+  const { cartData } = useContext(CartContext);
+
   return (
     <div>
       <nav className="navbar navbar-light bg-light justify-content-between">
@@ -19,7 +22,7 @@ export default function AppPreviousBar({ handlePrevious }) {
               style={styles.busketIcon}
             ></i>{" "}
             <span className="badge badge-light" style={styles.badgeIcon}>
-              9
+              {cartData.length}
             </span>
           </button>
         </div>
