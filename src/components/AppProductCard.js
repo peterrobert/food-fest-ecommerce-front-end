@@ -1,14 +1,15 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import cart from "../images/cart.png";
 
 export default function AppProductCard({ product }) {
   const { title, image, price, id } = product;
-  let navigate = useNavigate()
+
+  let navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/product/${id}`)
-  }
+    navigate(`/product/${id}`);
+  };
 
   return (
     <div className="product-card-container" style={styles.productContainer}>
