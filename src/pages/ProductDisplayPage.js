@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import AppButton from "../components/AppButton";
 import { fetchSingleProduct } from "../services/ProductService";
 import AppLoader from "../components/AppLoader";
 import { useNavigate } from "react-router-dom";
+import CartContext from "../context/CartContext";
+import _ from "lodash";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 // ===== CSS ====
 import "../styles/productPageDisplay.css";
 import AppPreviousBar from "../components/AppPreviousBar";
@@ -12,6 +18,7 @@ import AppPreviousBar from "../components/AppPreviousBar";
 export default function ProductDisplayPage() {
   let { id } = useParams();
   let navigate = useNavigate();
+  const { cartData, addToCart } = useContext(CartContext);
 
   // ==== QUERY ====
   // fetch a single product
@@ -22,13 +29,36 @@ export default function ProductDisplayPage() {
   } = useQuery(["Single Product", id], fetchSingleProduct);
 
   // <==== Add the item to the cart ====>
-  const handleProductCart = (product) => {
-    console.log(product);
+  const handleAddToCart = (product) => {
+    // <=== If the cart is empty ====>
+    if (_.isEmpty(cartData)) return addToCart(product);
+    // <==== If the cart doesnt include the item ====>
+    if (!_.isEmpty(cartData) && !_.includes(cartData, product)) {
+      addToCart(product);
+      NotificationManager.success(
+        "Product has been added to the cart",
+        "Notice!",
+        3000
+      );
+      return;
+    }
+
+    // <=== However it means the cart already has that product so show notice.
+    NotificationManager.warning(
+      "This product is already in the cart",
+      "Notice!",
+      3000
+    );
   };
 
   // <==== Navigate to homepage ====>
   const handlePrevious = () => {
     navigate(`/`);
+  };
+
+  // <==== Navigate to Cart page ====>
+  const navigateToCartPage = () => {
+    navigate(`/cart`);
   };
 
   // <===== Load the loader component of the data is still fetching ====>
@@ -38,7 +68,11 @@ export default function ProductDisplayPage() {
   //  <==== load the data when the loader finishes loading  ====>
   return (
     <>
-      <AppPreviousBar handlePrevious={handlePrevious} />
+      <NotificationContainer />
+      <AppPreviousBar
+        handlePrevious={handlePrevious}
+        navigateToCartPage={navigateToCartPage}
+      />
       <div className="product-display-container container">
         <div className="main-image-display">
           <img src={singleProductData.image} alt="main" />
@@ -56,7 +90,7 @@ export default function ProductDisplayPage() {
               <AppButton
                 appText="Add to cart"
                 color="#5ECE7B"
-                handleClick={() => handleProductCart(singleProductData)}
+                handleClick={() => handleAddToCart(singleProductData)}
               />
               <div
                 className="product-description"

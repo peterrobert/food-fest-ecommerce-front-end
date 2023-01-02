@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import CartContext from "../context/CartContext";
 
-export default function AppPreviousBar({ handlePrevious }) {
+export default function AppPreviousBar({ handlePrevious, navigateToCartPage }) {
   const { cartData } = useContext(CartContext);
 
   return (
@@ -15,7 +15,11 @@ export default function AppPreviousBar({ handlePrevious }) {
           Home
         </div>
         <div style={styles.cartContainer}>
-          <button type="button" className="btn btn-success">
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={() => navigateToCartPage()}
+          >
             <i
               className="fa fa-shopping-basket"
               aria-hidden="true"

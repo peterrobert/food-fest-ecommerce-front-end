@@ -20,8 +20,16 @@ export default function AppProductCard({ product }) {
     // <=== If the cart is empty ====>
     if (_.isEmpty(cartData)) return addToCart(product);
     // <==== If the cart doesnt include the item ====>
-    if (!_.isEmpty(cartData) && !_.includes(cartData, product))
-      return addToCart(product);
+    if (!_.isEmpty(cartData) && !_.includes(cartData, product)) {
+      addToCart(product);
+      NotificationManager.success(
+        "Product has been added to the cart",
+        "Notice!",
+        3000
+      );
+      return;
+    }
+
     // <=== However it means the cart already has that product so show notice.
     NotificationManager.warning(
       "This product is already in the cart",

@@ -7,6 +7,7 @@ import ProductDisplayPage from "./pages/ProductDisplayPage";
 import { Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import CartContext from "./context/CartContext";
+import CartPage from "./pages/CartPage";
 
 // Create Query Client
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ProductsPage />} />
           <Route path="/product/:id" element={<ProductDisplayPage />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </QueryClientProvider>
     </CartContext.Provider>
