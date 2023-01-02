@@ -7,14 +7,11 @@ import { BrowserRouter } from "react-router-dom";
 // <=== INSTALLING BOOTSTRAP ===>
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-// <=== REACT NOTIFICATION ===>
-import { NotificationContainer } from "react-notifications";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <NotificationContainer />
       <App />
     </BrowserRouter>
   </React.StrictMode>

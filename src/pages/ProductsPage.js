@@ -1,12 +1,14 @@
 import React from "react";
 import AppNavigation from "../components/AppNavigation";
 import { useQuery } from "react-query";
+// <=== REACT NOTIFICATION ===>
+import { NotificationContainer } from "react-notifications";
+
 // <=== IMPORT THE API ===>
 import { fetchAllCategories } from "../services/CategoryService";
 import AppLoader from "../components/AppLoader";
 import { fetchAllProducts } from "../services/ProductService";
 import ProductDisplay from "../components/ProductDisplay";
-
 
 export default function ProductsPage() {
   // ==== QUERIES ====
@@ -39,5 +41,10 @@ export default function ProductsPage() {
     );
   };
 
-  return <div className="product-page-container">{checkloader()}</div>;
+  return (
+    <>
+      <NotificationContainer />
+      <div className="product-page-container">{checkloader()}</div>
+    </>
+  );
 }

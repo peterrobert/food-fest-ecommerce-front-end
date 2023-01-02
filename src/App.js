@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./styles/app.css";
+import "react-notifications/lib/notifications.css";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDisplayPage from "./pages/ProductDisplayPage";
 
@@ -11,7 +12,6 @@ import CartContext from "./context/CartContext";
 const queryClient = new QueryClient();
 
 // <==== FOR ADDING PRODUCTS INTO THE CART ====>
-
 function App() {
   // <==== Main App State ===>
   const AppState = {
