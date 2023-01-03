@@ -42,7 +42,7 @@ export default function ProductDisplayPage() {
       return;
     }
     // <==== If the cart doesnt include the item ====>
-    if (!_.isEmpty(cartData) && !_.includes(cartData, product)) {
+    if (!_.isEmpty(cartData) && cartData.some(item => item.id !== product.id)) {
       addToCart(product);
       NotificationManager.success(
         "Product has been added to the cart",
