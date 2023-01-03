@@ -31,7 +31,16 @@ export default function ProductDisplayPage() {
   // <==== Add the item to the cart ====>
   const handleAddToCart = (product) => {
     // <=== If the cart is empty ====>
-    if (_.isEmpty(cartData)) return addToCart(product);
+    if (_.isEmpty(cartData)) {
+      addToCart(product);
+      NotificationManager.success(
+        "Product has been added to the cart",
+        "Notice!",
+        3000
+      );
+
+      return;
+    }
     // <==== If the cart doesnt include the item ====>
     if (!_.isEmpty(cartData) && !_.includes(cartData, product)) {
       addToCart(product);
