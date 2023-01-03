@@ -18,18 +18,18 @@ export default function AppProductCard({ product }) {
 
   const handleAddToCart = (product) => {
     // <=== If the cart is empty ====>
-    if (_.isEmpty(cartData)){
+    if (_.isEmpty(cartData)) {
       addToCart(product);
+
       NotificationManager.success(
         "Product has been added to the cart",
         "Notice!",
         3000
       );
-      return;
+    }
 
-    } 
-    // <==== If the cart doesnt include the item ====>
-    if (!_.isEmpty(cartData) && cartData.some(item => item.id !== product.id)) {
+    // <=== However it means the cart already has that product so show notice.
+    if (!_.isEmpty(cartData) && !_.includes(cartData, product)) {
       addToCart(product);
       NotificationManager.success(
         "Product has been added to the cart",
@@ -39,12 +39,15 @@ export default function AppProductCard({ product }) {
       return;
     }
 
-    // <=== However it means the cart already has that product so show notice.
-    NotificationManager.warning(
-      "This product is already in the cart",
-      "Notice!",
-      3000
-    );
+    // <==== If the cart includes the item ====>
+    if (!_.isEmpty(cartData) && _.includes(cartData, product)) {
+      NotificationManager.warning(
+        "Product is already in the cart",
+        "Notice!",
+        3000
+      );
+      return;
+    }
   };
 
   return (
