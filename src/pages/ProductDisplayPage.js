@@ -64,6 +64,25 @@ export default function ProductDisplayPage() {
     }
   };
 
+  const displayAddToCart = () => {
+   
+    if(cartData.some(item => item.id !== singleProductData.id)) return <AppButton
+    appText="Add to cart"
+    color="#5ECE7B"
+    handleClick={() => handleAddToCart(singleProductData)}
+  />
+
+  return ( <AppButton
+    appText="Already in the cart"
+    color="#FFA500"
+    handleClick={() => NotificationManager.warning(
+      "Product is already in the cart",
+      "Notice!",
+      3000
+    )}
+  />)
+  }
+
   // <==== Navigate to homepage ====>
   const handlePrevious = () => {
     navigate(`/`);
@@ -100,11 +119,9 @@ export default function ProductDisplayPage() {
                 $$
                 {singleProductData.price}
               </h3>
-              <AppButton
-                appText="Add to cart"
-                color="#5ECE7B"
-                handleClick={() => handleAddToCart(singleProductData)}
-              />
+
+             {displayAddToCart()}
+             
               <div
                 className="product-description"
                 style={styles.productDescription}
