@@ -14,6 +14,7 @@ import {
 // ===== CSS ====
 import "../styles/productPageDisplay.css";
 import AppPreviousBar from "../components/AppPreviousBar";
+import useFetchsingleProduct from "../hooks/useFetchSingleProduct";
 
 export default function ProductDisplayPage() {
   let { id } = useParams();
@@ -22,13 +23,11 @@ export default function ProductDisplayPage() {
 
   // ==== QUERY ====
   // fetch a single product
-  const {
-    isLoading: singleProductIsLoading,
-    status: singleProductStatus,
-    data: singleProductData,
-  } = useQuery(["Single Product", id], fetchSingleProduct);
+  const { singleProductData, singleProductIsLoading, singleProductStatus } =
+    useFetchsingleProduct(id);
 
   // <==== Add the item to the cart ====>
+
   const handleAddToCart = (product) => {
     // <=== If the cart is empty ====>
     // <=== If the cart is empty ====>
@@ -65,23 +64,29 @@ export default function ProductDisplayPage() {
   };
 
   const displayAddToCart = () => {
-   
-    if(cartData.some(item => item.id !== singleProductData.id)) return <AppButton
-    appText="Add to cart"
-    color="#5ECE7B"
-    handleClick={() => handleAddToCart(singleProductData)}
-  />
+    if (cartData.some((item) => item.id !== singleProductData.id))
+      return (
+        <AppButton
+          appText="Add to cart"
+          color="#5ECE7B"
+          handleClick={() => handleAddToCart(singleProductData)}
+        />
+      );
 
-  return ( <AppButton
-    appText="Already in the cart"
-    color="#FFA500"
-    handleClick={() => NotificationManager.warning(
-      "Product is already in the cart",
-      "Notice!",
-      3000
-    )}
-  />)
-  }
+    return (
+      <AppButton
+        appText="Already in the cart"
+        color="#FFA500"
+        handleClick={() =>
+          NotificationManager.warning(
+            "Product is already in the cart",
+            "Notice!",
+            3000
+          )
+        }
+      />
+    );
+  };
 
   // <==== Navigate to homepage ====>
   const handlePrevious = () => {
@@ -120,8 +125,8 @@ export default function ProductDisplayPage() {
                 {singleProductData.price}
               </h3>
 
-             {displayAddToCart()}
-             
+              {displayAddToCart()}
+
               <div
                 className="product-description"
                 style={styles.productDescription}

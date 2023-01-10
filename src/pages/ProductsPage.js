@@ -6,6 +6,7 @@ import { NotificationContainer } from "react-notifications";
 // <=== IMPORT THE API ===>
 import AppLoader from "../components/AppLoader";
 import ProductDisplay from "../components/ProductDisplay";
+// ==== Reusable hooks ====
 import useFetchCategories from "../hooks/useFetchCategories";
 import useFetchProducts from "../hooks/useFetchProducts";
 
