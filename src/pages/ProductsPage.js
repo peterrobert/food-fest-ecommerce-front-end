@@ -1,30 +1,21 @@
 import React from "react";
 import AppNavigation from "../components/AppNavigation";
-import { useQuery } from "react-query";
 // <=== REACT NOTIFICATION ===>
 import { NotificationContainer } from "react-notifications";
 
 // <=== IMPORT THE API ===>
-import { fetchAllCategories } from "../services/CategoryService";
 import AppLoader from "../components/AppLoader";
-import { fetchAllProducts } from "../services/ProductService";
 import ProductDisplay from "../components/ProductDisplay";
+import useFetchCategories from "../hooks/useFetchCategories";
+import useFetchProducts from "../hooks/useFetchProducts";
 
 export default function ProductsPage() {
   // ==== QUERIES ====
   // fetch categories
-  const {
-    isLoading: categoryIsLoading,
-    status: categoryStatus,
-    data: categoryData,
-  } = useQuery("Categories", fetchAllCategories);
-
+  const { categoryIsLoading, categoryStatus, categoryData } =
+    useFetchCategories();
   // fetch products
-  const {
-    isLoading: productIsLoading,
-    status: productStatus,
-    data: productData,
-  } = useQuery("products", fetchAllProducts);
+  const { productIsLoading, productData, productStatus } = useFetchProducts();
 
   //  <=== Check loader ===>
   const checkloader = () => {
