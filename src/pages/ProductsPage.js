@@ -1,28 +1,22 @@
 import React from "react";
 import AppNavigation from "../components/AppNavigation";
-import { useQuery } from "react-query";
-// <=== IMPORT THE API ===>
-import { fetchAllCategories } from "../services/CategoryService";
-import AppLoader from "../components/AppLoader";
-import { fetchAllProducts } from "../services/ProductService";
-import ProductDisplay from "../components/ProductDisplay";
+// <=== REACT NOTIFICATION ===>
+import { NotificationContainer } from "react-notifications";
 
+// <=== IMPORT THE API ===>
+import AppLoader from "../components/AppLoader";
+import ProductDisplay from "../components/ProductDisplay";
+// ==== Reusable hooks ====
+import useFetchCategories from "../hooks/useFetchCategories";
+import useFetchProducts from "../hooks/useFetchProducts";
 
 export default function ProductsPage() {
   // ==== QUERIES ====
   // fetch categories
-  const {
-    isLoading: categoryIsLoading,
-    status: categoryStatus,
-    data: categoryData,
-  } = useQuery("Categories", fetchAllCategories);
-
+  const { categoryIsLoading, categoryStatus, categoryData } =
+    useFetchCategories();
   // fetch products
-  const {
-    isLoading: productIsLoading,
-    status: productStatus,
-    data: productData,
-  } = useQuery("products", fetchAllProducts);
+  const { productIsLoading, productData, productStatus } = useFetchProducts();
 
   //  <=== Check loader ===>
   const checkloader = () => {
@@ -39,5 +33,10 @@ export default function ProductsPage() {
     );
   };
 
-  return <div className="product-page-container">{checkloader()}</div>;
+  return (
+    <>
+      <NotificationContainer />
+      <div className="product-page-container">{checkloader()}</div>
+    </>
+  );
 }

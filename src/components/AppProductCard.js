@@ -1,14 +1,19 @@
-import React from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import CartContext from "../context/CartContext";
 import cart from "../images/cart.png";
+import addProductToCart from "../helpers/addProductToCart";
 
 export default function AppProductCard({ product }) {
+  const appCart = useContext(CartContext);
+  const { addToCart, cartData } = appCart;
   const { title, image, price, id } = product;
-  let navigate = useNavigate()
+
+  let navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate(`/product/${id}`)
-  }
+    navigate(`/product/${id}`);
+  };
 
   return (
     <div className="product-card-container" style={styles.productContainer}>
@@ -22,7 +27,7 @@ export default function AppProductCard({ product }) {
       <h2 style={styles.productPrice}>{price} $$</h2>
       <div
         className="card-cart-button"
-        onClick={() => console.log("add to cart")}
+        onClick={() => addProductToCart(product, cartData, addToCart)}
       >
         <img src={cart} alt="cart-button" />
       </div>
