@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { NotificationManager } from "react-notifications";
-import _ from "lodash";
 import { useNavigate } from "react-router-dom";
 import CartContext from "../context/CartContext";
 import cart from "../images/cart.png";
+import addProductToCart from "../helpers/addProductToCart";
 
 export default function AppProductCard({ product }) {
   const appCart = useContext(CartContext);
@@ -14,40 +13,6 @@ export default function AppProductCard({ product }) {
 
   const handleNavigate = () => {
     navigate(`/product/${id}`);
-  };
-
-  const handleAddToCart = (product) => {
-    // <=== If the cart is empty ====>
-    if (_.isEmpty(cartData)) {
-      addToCart(product);
-
-      NotificationManager.success(
-        "Product has been added to the cart",
-        "Notice!",
-        3000
-      );
-    }
-
-    // <=== However it means the cart already has that product so show notice.
-    if (!_.isEmpty(cartData) && !_.includes(cartData, product)) {
-      addToCart(product);
-      NotificationManager.success(
-        "Product has been added to the cart",
-        "Notice!",
-        3000
-      );
-      return;
-    }
-
-    // <==== If the cart includes the item ====>
-    if (!_.isEmpty(cartData) && _.includes(cartData, product)) {
-      NotificationManager.warning(
-        "Product is already in the cart",
-        "Notice!",
-        3000
-      );
-      return;
-    }
   };
 
   return (
@@ -62,7 +27,7 @@ export default function AppProductCard({ product }) {
       <h2 style={styles.productPrice}>{price} $$</h2>
       <div
         className="card-cart-button"
-        onClick={() => handleAddToCart(product)}
+        onClick={() => addProductToCart(product, cartData, addToCart)}
       >
         <img src={cart} alt="cart-button" />
       </div>

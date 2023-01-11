@@ -1,12 +1,9 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
 import AppButton from "../components/AppButton";
-import { fetchSingleProduct } from "../services/ProductService";
 import AppLoader from "../components/AppLoader";
 import { useNavigate } from "react-router-dom";
 import CartContext from "../context/CartContext";
-import _ from "lodash";
 import {
   NotificationContainer,
   NotificationManager,
@@ -15,53 +12,18 @@ import {
 import "../styles/productPageDisplay.css";
 import AppPreviousBar from "../components/AppPreviousBar";
 import useFetchsingleProduct from "../hooks/useFetchSingleProduct";
+import addProductToCart from "../helpers/addProductToCart";
 
 export default function ProductDisplayPage() {
   let { id } = useParams();
   let navigate = useNavigate();
-  const { cartData, addToCart } = useContext(CartContext);
 
-  // ==== QUERY ====
-  // fetch a single product
+  // <==== QUERY ==== FETCH SINGLE PRODUCT =====>
   const { singleProductData, singleProductIsLoading, singleProductStatus } =
     useFetchsingleProduct(id);
 
-  // <==== Add the item to the cart ====>
-
-  const handleAddToCart = (product) => {
-    // <=== If the cart is empty ====>
-    // <=== If the cart is empty ====>
-    if (_.isEmpty(cartData)) {
-      addToCart(product);
-
-      NotificationManager.success(
-        "Product has been added to the cart",
-        "Notice!",
-        3000
-      );
-    }
-
-    // <=== However it means the cart already has that product so show notice.
-    if (!_.isEmpty(cartData) && !_.includes(cartData, product)) {
-      addToCart(product);
-      NotificationManager.success(
-        "Product has been added to the cart",
-        "Notice!",
-        3000
-      );
-      return;
-    }
-
-    // <==== If the cart includes the item ====>
-    if (!_.isEmpty(cartData) && _.includes(cartData, product)) {
-      NotificationManager.warning(
-        "Product is already in the cart",
-        "Notice!",
-        3000
-      );
-      return;
-    }
-  };
+  // <==== CONTEXT ITEMS ====>
+  const { cartData, addToCart } = useContext(CartContext);
 
   const displayAddToCart = () => {
     if (cartData.some((item) => item.id !== singleProductData.id))
@@ -69,7 +31,9 @@ export default function ProductDisplayPage() {
         <AppButton
           appText="Add to cart"
           color="#5ECE7B"
-          handleClick={() => handleAddToCart(singleProductData)}
+          handleClick={() =>
+            addProductToCart(singleProductData, cartData, addToCart)
+          }
         />
       );
 
